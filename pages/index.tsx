@@ -1,11 +1,11 @@
 import Navbar from '@components/common/Navbar'
-import Footer from '@components/common/Footer'
+import Footerr from '@components/common/Footer'
 
 const Home = () => {
   return (
     <div>
       <Navbar />
-      <Footer />
+      <Footerr />
     </div>
   )
 }
