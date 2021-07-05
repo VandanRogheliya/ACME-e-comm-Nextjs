@@ -1,7 +1,7 @@
 import Navbar from '@components/common/Navbar'
 import Footer from '@components/common/Footer'
 
-const Home = (): number => {
+const Home = () => {
   return (
     <div>
       <Navbar />
