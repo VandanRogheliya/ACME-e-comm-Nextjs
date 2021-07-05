@@ -16,7 +16,7 @@ const Footer = () => {
             </Link>
           </div>
             <div className="col-span-1 lg:col-span-2 flex items-start lg:justify-end text-primary">
-                    <a href="https://github.com/VandanRogheliya/e-comm-site" target="_blank"><div className="flex space-x-6 items-center h-10 text-white"><Github /></div> </a>
+                    <a href="https://github.com/VandanRogheliya/e-comm-site" target="_blank" rel="noreferrer"><div className="flex space-x-6 items-center h-10 text-white"><Github /></div> </a>
             </div>
             </div>
         </footer>

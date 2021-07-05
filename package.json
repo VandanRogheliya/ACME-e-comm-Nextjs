@@ -10,6 +10,11 @@
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
     "type-check": "tsc --pretty --noEmit"
   },
+  "pre-commit": [
+    "lint",
+    "format",
+    "type-check"
+  ],
   "dependencies": {
     "firebase": "^8.7.0",
     "next": "11.0.1",
@@ -25,6 +30,7 @@
     "eslint-config-next": "11.0.1",
     "eslint-react": "^0.0.4",
     "postcss": "^8.3.5",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.3.2",
     "tailwindcss": "^2.2.4",
     "typescript": "4.3.5"
