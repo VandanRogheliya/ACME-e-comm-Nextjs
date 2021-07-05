@@ -8,11 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
+    "format-check": "prettier --check \"**/*.{js,ts,tsx}\"",
     "type-check": "tsc --pretty --noEmit"
   },
   "pre-commit": [
     "lint",
-    "format",
+    "format-check",
     "type-check"
   ],
   "dependencies": {
