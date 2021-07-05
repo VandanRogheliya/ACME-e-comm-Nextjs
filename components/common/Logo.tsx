@@ -1,4 +1,3 @@
-
 const Logo = ({ className = '', ...props }) => (
   <svg
     width="32"
