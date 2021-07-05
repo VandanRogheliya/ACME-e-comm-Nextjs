@@ -1,11 +1,11 @@
 import Navbar from '@components/common/Navbar'
-import Footerr from '@components/common/Footer'
+import Footer from '@components/common/Footer'
 
-const Home = () => {
+const Home = (): number => {
   return (
     <div>
       <Navbar />
-        <Footerr />
+      <Footer />
     </div>
   )
 }
