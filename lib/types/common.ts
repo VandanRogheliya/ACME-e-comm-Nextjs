@@ -28,7 +28,7 @@ export type UserType = {
 }
 
 export type OrderItemType = {
-  oid: string
+  oid?: string
   pid: string
   uid: string
   quantity: number
@@ -36,7 +36,7 @@ export type OrderItemType = {
 }
 
 export type CartItemType = {
-  cid: string
+  cid?: string
   pid: string
   uid: string
   quantity: number
