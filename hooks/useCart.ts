@@ -10,7 +10,7 @@ const useCart = (uid: string) => {
   useEffect(() => {
     if (!uid) return
     const unsubscribe = firestore
-      .collection(FIREBASE_COLLECTIONS.CART_ITEMS)
+      .collection(FIREBASE_COLLECTIONS.CART_ITEM)
       .where('uid', '==', uid)
       .onSnapshot((cartItemsSnapshot) => {
         const cartItemsFromSnapshot: CartItemType[] = []
@@ -42,7 +42,7 @@ const useCart = (uid: string) => {
       if (!user.exists) throw new Error('User not found')
 
       const alreadyAddedProducts = await firestore
-        .collection(FIREBASE_COLLECTIONS.CART_ITEMS)
+        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
         .where('uid', '==', uid)
         .where('pid', '==', pid)
         .get()
@@ -61,7 +61,7 @@ const useCart = (uid: string) => {
       }
 
       const newCartItemRef = await firestore
-        .collection(FIREBASE_COLLECTIONS.CART_ITEMS)
+        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
         .add(newCartItem)
 
       await firestore
@@ -83,7 +83,7 @@ const useCart = (uid: string) => {
       if (newQuantity > MAX_CART_ITEM_QUANTITY)
         throw new Error('Maximum limit reached')
       const cartItemRef = firestore
-        .collection(FIREBASE_COLLECTIONS.CART_ITEMS)
+        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
         .doc(cid)
 
       if (!(await cartItemRef.get()).exists)
@@ -100,7 +100,7 @@ const useCart = (uid: string) => {
   const removeProduct = async (cid: string) => {
     try {
       const cartItemRef = firestore
-        .collection(FIREBASE_COLLECTIONS.CART_ITEMS)
+        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
         .doc(cid)
 
       if (!(await cartItemRef.get()).exists)
@@ -123,7 +123,19 @@ const useCart = (uid: string) => {
     }
   }
 
-  return { cartItems, addProduct, updateQuantityTo, removeProduct }
+  const makeEmpty = async () => {
+    try {
+      const cartItemsSnapshot = await firestore
+        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
+        .where('uid', '==', uid)
+        .get()
+      cartItemsSnapshot.forEach((cartItem) => cartItem.ref.delete())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  return { cartItems, addProduct, updateQuantityTo, removeProduct, makeEmpty }
 }
 
 export default useCart

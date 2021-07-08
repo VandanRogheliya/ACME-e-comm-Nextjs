@@ -1,3 +1,5 @@
+import firebase from '@lib/firebase'
+
 export type ProductType = {
   pid: string
   name: string
@@ -32,7 +34,7 @@ export type OrderItemType = {
   pid: string
   uid: string
   quantity: number
-  timestamp: string
+  timestamp: firebase.firestore.FieldValue
 }
 
 export type CartItemType = {

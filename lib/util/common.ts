@@ -1,5 +1,6 @@
+import { FIREBASE_COLLECTIONS } from '@lib/constants'
 import firebase, { firebaseAuth, firestore } from '@lib/firebase'
-import { UserType } from '@lib/types/common'
+import { CartItemType, OrderItemType, UserType } from '@lib/types/common'
 
 export const handleLogin = async () => {
   try {
@@ -26,4 +27,43 @@ export const handleLogin = async () => {
   } catch (error) {
     console.error(error)
   }
+}
+
+export const handlePlaceOrder = async (cartItems: CartItemType[]) => {
+  try {
+    cartItems.forEach(async (cartItem) => {
+      const orderItem: OrderItemType = {
+        pid: cartItem.pid,
+        uid: cartItem.uid,
+        quantity: cartItem.quantity,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      }
+      await firestore
+        .collection(FIREBASE_COLLECTIONS.ORDER_ITEM)
+        .doc()
+        .set(orderItem)
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const getAllOrders = async (uid: string) => {
+  const allOrders: OrderItemType[] = []
+  try {
+    const orderItems = await firestore
+      .collection(FIREBASE_COLLECTIONS.ORDER_ITEM)
+      .where('uid', '==', uid)
+      .get()
+
+    orderItems.forEach((orderItemDoc) =>
+      allOrders.push({
+        ...(orderItemDoc.data() as OrderItemType),
+        oid: orderItemDoc.id,
+      })
+    )
+  } catch (error) {
+    console.error(error)
+  }
+  return allOrders
 }
