@@ -1,6 +1,11 @@
 import { FIREBASE_COLLECTIONS } from '@lib/constants'
 import firebase, { firebaseAuth, firestore } from '@lib/firebase'
-import { CartItemType, OrderItemType, UserType } from '@lib/types/common'
+import {
+  CartItemType,
+  OrderItemType,
+  ProductType,
+  UserType,
+} from '@lib/types/common'
 
 export const handleLogin = async () => {
   try {
@@ -66,4 +71,18 @@ export const getAllOrders = async (uid: string) => {
     console.error(error)
   }
   return allOrders
+}
+
+export const getProductById = async (pid: string) => {
+  try {
+    const productRef = await firestore
+      .collection(FIREBASE_COLLECTIONS.PRODUCTS)
+      .doc(pid)
+      .get()
+    const product: ProductType = productRef.data() as ProductType
+    return product
+  } catch (error) {
+    console.error(error)
+    return null
+  }
 }
