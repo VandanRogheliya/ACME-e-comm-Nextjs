@@ -41,6 +41,7 @@ export const handlePlaceOrder = async (cartItems: CartItemType[]) => {
         pid: cartItem.pid,
         uid: cartItem.uid,
         quantity: cartItem.quantity,
+        size: cartItem.size,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
       await firestore
