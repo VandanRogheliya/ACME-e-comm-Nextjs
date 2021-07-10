@@ -32,6 +32,7 @@ export type UserType = {
 export type OrderItemType = {
   oid?: string
   pid: string
+  size: string
   uid: string
   quantity: number
   timestamp: firebase.firestore.FieldValue
@@ -40,6 +41,7 @@ export type OrderItemType = {
 export type CartItemType = {
   cid?: string
   pid: string
+  size: string
   uid: string
   quantity: number
 }

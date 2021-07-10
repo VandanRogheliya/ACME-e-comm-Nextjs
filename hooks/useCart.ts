@@ -25,7 +25,7 @@ const useCart = (uid: string) => {
     return () => unsubscribe()
   }, [uid])
 
-  const addProduct = async (pid: string, quantity: number) => {
+  const addProduct = async (pid: string, quantity: number, size: string) => {
     try {
       const product = await firestore
         .collection(FIREBASE_COLLECTIONS.PRODUCTS)
@@ -45,6 +45,7 @@ const useCart = (uid: string) => {
         .collection(FIREBASE_COLLECTIONS.CART_ITEM)
         .where('uid', '==', uid)
         .where('pid', '==', pid)
+        .where('size', '==', size)
         .get()
 
       if (!alreadyAddedProducts.empty) {
@@ -58,6 +59,7 @@ const useCart = (uid: string) => {
         pid,
         quantity,
         uid,
+        size,
       }
 
       const newCartItemRef = await firestore
