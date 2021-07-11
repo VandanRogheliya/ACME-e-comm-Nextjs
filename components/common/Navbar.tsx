@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { useState } from 'react'
 import { handleLogin } from '@lib/util/common'
 import { useAuth } from 'contexts/auth'
-import { firebaseAuth } from '@lib/firebase'
+import firebase  from '@lib/firebase'
 
 const Navbar = () => {
   const [active, setActive] = useState(false)
@@ -14,7 +14,7 @@ const Navbar = () => {
   }
   const { user, isLoading } = useAuth()
   const logout = () => {
-    firebaseAuth.auth().signOut()
+    firebase.auth().signOut()
   }
   return (
     <nav className="flex items-center justify-between flex-wrap  bg-black py-4 lg:px-12 shadow border-solid border-t-2">
