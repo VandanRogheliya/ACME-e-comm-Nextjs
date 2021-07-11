@@ -45,3 +45,11 @@ export type CartItemType = {
   uid: string
   quantity: number
 }
+
+export type CartItemWithProductType = {
+  cid?: string
+  product: ProductType
+  size: string
+  uid: string
+  quantity: number
+}
