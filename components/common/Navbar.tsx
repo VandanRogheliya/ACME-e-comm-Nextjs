@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { useState } from 'react'
 import { handleLogin } from '@lib/util/common'
 import { useAuth } from 'contexts/auth'
-import firebase  from '@lib/firebase'
+import firebase from '@lib/firebase'
 
 const Navbar = () => {
   const [active, setActive] = useState(false)
@@ -101,7 +101,7 @@ const Navbar = () => {
          if user not null display logout
          2 button login/logout
         */}
-        {user == null && (
+        {isLoading != null && user == null && (
           <div className="">
             <button
               onClick={handleLogin}
