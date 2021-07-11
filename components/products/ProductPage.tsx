@@ -26,7 +26,7 @@ const SizeRadioButtons = ({
       {sizes.map((size) => (
         <div
           key={size}
-          className={` duration-100 rounded-full w-12 h-12 flex items-center justify-center  ${
+          className={` duration-100 rounded-full w-12 h-12 flex items-center justify-center cursor-pointer ${
             size === selectedSize
               ? 'border-2 border-white '
               : 'border border-gray-500'
@@ -57,16 +57,22 @@ const ProductPage = ({ product }: Props) => {
       <div className="relative lg:col-span-2">
         <div
           ref={sliderRef}
-          className="flex  h-full overflow-hidden bg-purple-600"
+          className="flex h-96 lg:h-screen overflow-hidden bg-purple-600"
         >
           {product.images.map((image) => (
             <div
               key={image}
-              className="keen-slider__slide relative flex items-center justify-center"
+              className="keen-slider__slide flex items-center justify-center"
             >
-              <Image src={image} width="600" height="600" />
+              <Image src={image} layout="fill" objectFit="contain" />
             </div>
           ))}
+        </div>
+        <div className="absolute top-0 left-0 flex flex-col items-start">
+          <p className="bg-black font-bold text-3xl p-4">{product.name}</p>
+          <p className="bg-black font-bold text-sm p-4 pt-0">
+            $ {product.price.toFixed(2)} USD
+          </p>
         </div>
         <div className="absolute flex bottom-0 right-0 mb-10 mr-10">
           <button

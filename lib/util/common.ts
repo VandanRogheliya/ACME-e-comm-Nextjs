@@ -87,3 +87,20 @@ export const getProductById = async (pid: string) => {
     return null
   }
 }
+
+export const getProductBySlug = async (slug: string) => {
+  try {
+    const productRef = await firestore
+      .collection(FIREBASE_COLLECTIONS.PRODUCTS)
+      .where('slug', '==', slug)
+      .get()
+    const products: ProductType[] = []
+    productRef.forEach((product) =>
+      products.push(product.data() as ProductType)
+    )
+    return products[0]
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}

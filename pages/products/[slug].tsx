@@ -5,7 +5,7 @@ import { firestore } from '@lib/firebase'
 import { ProductType } from '@lib/types/common'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import ProductPage from '@components/products/ProductPage'
-import { getProductById } from '@lib/util/common'
+import { getProductBySlug } from '@lib/util/common'
 
 const Index = ({ product }) => (
   <>
@@ -16,9 +16,9 @@ const Index = ({ product }) => (
 )
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const pid = params.slug as string
+  const slug = params.slug as string
 
-  const product: ProductType = await getProductById(pid)
+  const product: ProductType = await getProductBySlug(slug)
 
   return {
     props: {
@@ -33,9 +33,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     .get()
   const productIDs: string[] = []
 
-  productsRef.forEach((productRef) => productIDs.push(productRef.id))
+  productsRef.forEach((productRef) => productIDs.push(productRef.data().slug))
 
-  const paths = productIDs.map((pid) => ({ params: { slug: pid } }))
+  const paths = productIDs.map((slug) => ({ params: { slug } }))
 
   return {
     paths,
