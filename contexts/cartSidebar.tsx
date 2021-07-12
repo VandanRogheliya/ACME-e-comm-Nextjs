@@ -10,7 +10,7 @@ const CartSidebarContext = createContext<CartSidebarContextValueType>({
 })
 
 export const CartSidebarProvider = ({ children }) => {
-  const [isCartSidebarVisible, setIsCartSidebarVisible] = useState(true)
+  const [isCartSidebarVisible, setIsCartSidebarVisible] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = isCartSidebarVisible ? 'hidden' : 'auto'
