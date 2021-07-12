@@ -14,7 +14,7 @@ const HomeCard = () => {
           src="https://cdn11.bigcommerce.com/s-qfzerv205w/images/stencil/original/products/115/489/Hat-front-black__72990.1603748583.png"
         ></img>
       </div>
-      <div className="bg-white">
+      <div className="bg-black">
         <div className="flex flex-grow-0 items-start ">
           <div className="flex-initial items-start bg-black">
             <h3 className="font-bold text-4xl text-white p-2 ">Name</h3>

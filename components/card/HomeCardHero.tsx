@@ -1,5 +1,4 @@
 const HomeCardHero = () => {
-  //   grid grid-cols-4 lg:grid-cols-8
   return (
     <div className="grid grid-cols-4 lg:grid-cols-6">
       <div className="col-span-4 lg:col-span-6 lg:row-span-6 bg-purple-600">

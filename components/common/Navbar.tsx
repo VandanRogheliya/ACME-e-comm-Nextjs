@@ -5,22 +5,20 @@ import { useState } from 'react'
 import { handleLogin } from '@lib/util/common'
 import { useAuth } from 'contexts/auth'
 import firebase from '@lib/firebase'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const Navbar = () => {
   const [active, setActive] = useState(false)
 
-  const handleClick = () => {
-    setActive(!active)
-  }
+  const toggleHamburgerMenu = () => setActive(!active)
+
   const { user, isLoading } = useAuth()
-  const logout = () => {
-    firebase.auth().signOut()
-  }
+  const logout = () => firebase.auth().signOut()
   return (
     <nav className="flex items-center justify-between flex-wrap  bg-black py-4 lg:px-12 shadow border-solid border-t-2">
       <div className="flex justify-between lg:w-auto w-full lg:border-b-0 pl-6 pr-2 border-solid border-b-2 pb-5 lg:pb-0">
         <div className="flex items-center flex-shrink-0 text-white mr-16">
-          <Logo></Logo>
+          <Logo />
           <span className="font-semibold text-xl tracking-tight font">
             Acme
           </span>
@@ -29,24 +27,16 @@ const Navbar = () => {
         {/* hamburger button */}
         <div className="lg:hidden flex space-x-5">
           <div className="lg:hidden">
-            {/* Icon is not Visible */}
             <Link href="/">
-              <ShoppingCartIcon className="text-white"></ShoppingCartIcon>
+              <ShoppingCartIcon className="text-white" />
             </Link>
           </div>
           <button
-            onClick={handleClick}
+            onClick={toggleHamburgerMenu}
             id="nav"
             className="flex items-center px-3 py-2 border-2 rounded text-white  hover:bg-purple-600"
           >
-            <svg
-              className="fill-current h-3 w-3"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Menu</title>
-              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
+            <MenuIcon />
           </button>
         </div>
       </div>
@@ -97,12 +87,9 @@ const Navbar = () => {
             </svg>
           </button>
         </div>
-        {/* Conditionally render the button for user  
-         if user not null display logout
-         2 button login/logout
-        */}
-        {isLoading != null && user == null && (
-          <div className="">
+
+        {!isLoading && user == null && (
+          <div>
             <button
               onClick={handleLogin}
               className="block w-full text-left text-md px-2 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-purple-600 lg:mt-0"
@@ -112,7 +99,7 @@ const Navbar = () => {
           </div>
         )}
         {user != null && (
-          <div className="">
+          <div>
             <button
               onClick={logout}
               className="block w-full text-left text-md px-2 py-2 rounded text-white ml-2 font-bold hover:text-white mt-4 hover:bg-purple-600 lg:mt-0"
