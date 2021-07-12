@@ -4,6 +4,11 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider'
 import Image from 'next/image'
 import { ArrowBack, ArrowForward } from '@material-ui/icons'
+import { useAuth } from 'contexts/auth'
+import useCart from 'hooks/useCart'
+import { useCartSidebar } from 'contexts/cartSidebar'
+
+const DEFAULT_ADD_TO_CART_PRODUCT_QUANTITY = 1
 
 type Props = {
   product: ProductType
@@ -43,6 +48,9 @@ const SizeRadioButtons = ({
 const ProductPage = ({ product }: Props) => {
   const [selectedSize, setSelectedSize] = useState<string>(null)
   const descriptionDiv = useRef<HTMLDivElement>(null)
+  const { user } = useAuth()
+  const { addProduct } = useCart(user?.uid)
+  const { setIsCartSidebarVisible } = useCartSidebar()
 
   useEffect(() => {
     if (product?.sizes) setSelectedSize(product.sizes[0])
@@ -51,6 +59,15 @@ const ProductPage = ({ product }: Props) => {
   }, [])
 
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({ loop: true })
+
+  const handleAddToCart = async () => {
+    await addProduct(
+      product.pid,
+      DEFAULT_ADD_TO_CART_PRODUCT_QUANTITY,
+      selectedSize
+    )
+    setIsCartSidebarVisible(true)
+  }
 
   return (
     <div className="grid lg:grid-cols-3 bg-black text-white w-full">
@@ -98,7 +115,10 @@ const ProductPage = ({ product }: Props) => {
           />
         )}
         <div ref={descriptionDiv} className="leading-7" />
-        <button className="bg-white text-black py-5 duration-150 border hover:bg-gray-400">
+        <button
+          className="bg-white text-black py-5 duration-150 border hover:bg-gray-400"
+          onClick={handleAddToCart}
+        >
           ADD TO CART
         </button>
       </div>

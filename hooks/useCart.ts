@@ -1,18 +1,65 @@
 import { FIREBASE_COLLECTIONS } from '@lib/constants'
 import firebase, { firestore } from '@lib/firebase'
-import { CartItemType } from '@lib/types/common'
+import {
+  CartItemType,
+  CartItemWithProductType,
+  ProductType,
+} from '@lib/types/common'
 import { useEffect, useState } from 'react'
 
 const MAX_CART_ITEM_QUANTITY = 6
 
 const useCart = (uid: string) => {
-  const [cartItems, setCartItems] = useState<CartItemType[]>([])
+  const [cartItems, setCartItems] = useState<CartItemWithProductType[]>([])
+  const [total, setTotal] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const handleCartProducts = async (newCartItems: CartItemType[]) => {
+    if (!newCartItems.length) {
+      setCartItems([])
+      return
+    }
+    try {
+      const productIDs: string[] = newCartItems.map((cartItem) => cartItem.pid)
+      const productRefs = await firestore
+        .collection(FIREBASE_COLLECTIONS.PRODUCTS)
+        .where('pid', 'in', productIDs)
+        .get()
+
+      const products: ProductType[] = []
+
+      productRefs.forEach((product) =>
+        products.push(product.data() as ProductType)
+      )
+
+      const newCartItemsWithProduct: CartItemWithProductType[] = []
+      newCartItems.forEach((cartItem) =>
+        newCartItemsWithProduct.push({
+          ...cartItem,
+          product: products.filter(
+            (product) => product.pid === cartItem.pid
+          )[0],
+        })
+      )
+
+      let newTotal = 0
+
+      newCartItemsWithProduct.forEach(
+        (cartItem) => (newTotal += cartItem.product.price * cartItem.quantity)
+      )
+      setTotal(newTotal)
+      setCartItems(newCartItemsWithProduct)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   useEffect(() => {
     if (!uid) return
     const unsubscribe = firestore
       .collection(FIREBASE_COLLECTIONS.CART_ITEM)
       .where('uid', '==', uid)
-      .onSnapshot((cartItemsSnapshot) => {
+      .onSnapshot(async (cartItemsSnapshot) => {
         const cartItemsFromSnapshot: CartItemType[] = []
         cartItemsSnapshot.forEach((cartItem) =>
           cartItemsFromSnapshot.push({
@@ -20,7 +67,8 @@ const useCart = (uid: string) => {
             cid: cartItem.id,
           } as CartItemType)
         )
-        setCartItems(cartItemsFromSnapshot)
+        await handleCartProducts(cartItemsFromSnapshot)
+        setIsLoading(false)
       })
     return () => unsubscribe()
   }, [uid])
@@ -80,8 +128,12 @@ const useCart = (uid: string) => {
   }
 
   const updateQuantityTo = async (cid: string, newQuantity: number) => {
+    if (!newQuantity) {
+      await removeProduct(cid)
+      return
+    }
+
     try {
-      if (!newQuantity) throw new Error('New quantity can not be zero')
       if (newQuantity > MAX_CART_ITEM_QUANTITY)
         throw new Error('Maximum limit reached')
       const cartItemRef = firestore
@@ -137,7 +189,15 @@ const useCart = (uid: string) => {
     }
   }
 
-  return { cartItems, addProduct, updateQuantityTo, removeProduct, makeEmpty }
+  return {
+    cartItems,
+    total,
+    isLoading,
+    addProduct,
+    updateQuantityTo,
+    removeProduct,
+    makeEmpty,
+  }
 }
 
 export default useCart
