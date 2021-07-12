@@ -7,12 +7,11 @@ const Card = () => {
             <span>Clothing </span>
           </h3>
           <div className="text-white p-4 font-bold text-xl group-hover:bg-purple-600 inline-block">
-            {' '}
-            $50
+          
+            $50 
           </div>
           <div className="w-10/12 mx-auto h-auto hover:w-11/12 cursor-pointer">
             <img
-              className=""
               src="https://cdn11.bigcommerce.com/s-qfzerv205w/images/stencil/original/products/115/489/Hat-front-black__72990.1603748583.png"
             ></img>
           </div>
