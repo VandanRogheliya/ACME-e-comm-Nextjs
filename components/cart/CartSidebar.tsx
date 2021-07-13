@@ -23,6 +23,20 @@ const CartSidebar = ({ setIsOpen }: Props) => {
   const { cartItems, total, removeProduct, updateQuantityTo, isLoading } =
     useCart(user?.uid)
 
+  const handleCheckout = async () => {
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        mode: 'no-cors',
+      })
+      console.log(response)
+      
+      if (response.status !== 303) throw new Error('Something went wrong')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <div className="fixed h-screen max-h-screen w-full top-0 left-0 right-0 bottom-0 grid grid-cols-6 text-white overflow-auto">
       <div className="col-span-1 lg:col-span-4 bg-black opacity-50" />
@@ -61,7 +75,7 @@ const CartSidebar = ({ setIsOpen }: Props) => {
                 ))}
               </div>
             </div>
-            <TotalSection total={total} />
+            <TotalSection total={total} handleCheckout={handleCheckout} />
           </div>
         )}
       </div>

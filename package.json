@@ -19,14 +19,17 @@
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
+    "cors": "^2.8.5",
     "firebase": "^8.7.0",
     "keen-slider": "^5.5.1",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-loader-spinner": "^4.0.0"
+    "react-loader-spinner": "^4.0.0",
+    "stripe": "^8.161.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
     "@types/react": "17.0.13",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
