@@ -1,50 +1,52 @@
 import Navbar from '@components/common/Navbar'
 import Footer from '@components/common/Footer'
-import Card from '@components/card/Card'
 import HomeCard from '@components/card/HomeCard'
-import HomeCardHero from '@components/card/HomeCardHero'
 import { PID_ARRAY } from '@lib/constants'
 import { ProductType } from '@lib/types/common'
 import { getProductById } from '@lib/util/common'
 import { GetStaticProps } from 'next'
-import { useEffect } from 'react'
 
 type Props = {
   products: ProductType[]
 }
 
 const Home = ({ products }: Props) => {
-  useEffect(() => {
-   console.log(products) 
-  },[])
   return (
     <div>
       <Navbar />
-      <div className="flex  flex-col flex-intial lg:flex-row">
-        <div className="grid lg:grid-cols-7">
-          <div className="lg:col-span-5 lg:row-span-4">
-            <HomeCardHero />
-          </div>
-          <div className="lg:row-span-3 lg:col-span-2">
-            {/* <HomeCard />  */}
-          </div>
+      <div className="lg:grid lg:grid-rows-2 lg:grid-flow-col">
+        <div className=" bg-purple-700 lg:row-span-2 lg:col-span-2">
+          <HomeCard
+            product={products.filter((products) => products.pid == '115')[0]}
+            isHero
+          />
+        </div>
+        <div className="bg-red-400 lg:row-span-1">
+          <HomeCard
+            product={products.filter((products) => products.pid == '116')[0]}
+          />
+        </div>
+        <div className="bg-yellow-300 lg:row-span-1">
+          <HomeCard
+            product={products.filter((products) => products.pid == '117')[0]}
+          />
         </div>
       </div>
-      <Card product={products[0]} />
+
       <Footer />
     </div>
   )
 }
 
-export const getStaticProps: GetStaticProps =async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const pidArray = PID_ARRAY
   const products: ProductType[] = []
-  // pidArray.forEach(async (pid) => products.push(await getProductById(pid)))
-  for (let i = 0; i < pidArray.length; i++){
+
+  for (let i = 0; i < pidArray.length; i++) {
     products.push(await getProductById(pidArray[i]))
   }
   return {
-    props: { products:JSON.stringify(products) },
+    props: { products },
   }
 }
 export default Home

@@ -3,40 +3,30 @@ import Image from 'next/image'
 
 type Props = {
   product: ProductType
+  isHero?: boolean
 }
 
-const HomeCard = ({ product }: Props) => {
+const HomeCard = ({ product, isHero }: Props) => {
   return (
     <div>
-      <div className="bg-pink-700">
-        <div className="flex flex-grow-0 items-start ">
-          <div className="flex-initial items-start bg-black">
+      <div>
+        <div className="flex flex-grow-1 ">
+          <div className="flex-initial  bg-black">
             <h3 className="font-bold text-4xl text-white p-2 ">
               {product.name}
             </h3>
-            <div className="text-white p-4 font-bold text-2xl pb-2 ">$40</div>
+            <div className="text-white p-4 font-bold text-2xl pb-2 ">
+              {product.price}
+            </div>
           </div>
         </div>
-
-        <Image
-          className="w-4/5 mx-auto h-auto "
-          width={500}
-          height={500}
-          src="https://cdn11.bigcommerce.com/s-qfzerv205w/images/stencil/original/products/115/489/Hat-front-black__72990.1603748583.png"
-        />
-      </div>
-      <div className="bg-black">
-        <div className="flex flex-grow-0 items-start ">
-          <div className="flex-initial items-start bg-black">
-            <h3 className="font-bold text-4xl text-white p-2 ">Name</h3>
-            <div className="text-white p-4 font-bold text-2xl pb-2 ">$40</div>
-          </div>
+        <div className="mx-auto text-center">
+          <Image
+            width={isHero ? 1000 : 500}
+            height={isHero ? 1000 : 500}
+            src={product.images[0]}
+          />
         </div>
-
-        <img
-          className="w-4/5 mx-auto h-auto "
-          src="https://cdn11.bigcommerce.com/s-qfzerv205w/images/stencil/original/products/115/489/Hat-front-black__72990.1603748583.png"
-        ></img>
       </div>
     </div>
   )
