@@ -8,9 +8,9 @@ import firebase from '@lib/firebase'
 import MenuIcon from '@material-ui/icons/Menu'
 
 const Navbar = () => {
-  const [active, setActive] = useState(false)
+  const [isHamburgerActive, setActive] = useState(false)
 
-  const toggleHamburgerMenu = () => setActive(!active)
+  const toggleHamburgerMenu = () => setActive(!isHamburgerActive)
 
   const { user, isLoading } = useAuth()
   const logout = () => firebase.auth().signOut()
@@ -43,7 +43,7 @@ const Navbar = () => {
 
       <div
         className={`${
-          active ? '' : 'hidden'
+          isHamburgerActive ? '' : 'hidden'
         } menu w-full flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8`}
       >
         <div className="text-md font-bold text-white lg:flex-grow">
@@ -77,7 +77,7 @@ const Navbar = () => {
             </svg>
           </button>
         </div> */}
-        {!isLoading && user == null && (
+        {!isLoading && !user && (
           <div>
             <button
               onClick={handleLogin}
@@ -98,9 +98,8 @@ const Navbar = () => {
           </div>
         )}
         <Link href="/">
-          <div className={`${active ? 'hidden' : ''} text-white`}>
-            {' '}
-            <ShoppingCartIcon />{' '}
+          <div className={`${isHamburgerActive ? 'hidden' : ''} text-white`}>
+            <ShoppingCartIcon />
           </div>
         </Link>
       </div>
