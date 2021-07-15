@@ -1,25 +1,31 @@
+import { COLOR_MAP } from '@lib/constants'
 import { ProductType } from '@lib/types/common'
 import Image from 'next/image'
 
 type Props = {
   product: ProductType
+  color: number
 }
 
-const Card = ({ product }: Props) => {
+const Card = ({ product, color }: Props) => {
   return (
-    <div className=" w-1/3 max-w-6xl mx-auto flex flex-row lg:flex-row-2 text-white">
-      <div className="group bg-black ">
-        <div className=" flex flex-col flex-initial items-start">
-          <h3 className="font-bold text-2xl text-white p-2 bg-black group-hover:bg-purple-600">
-            <span>{product.name}</span>
-          </h3>
-          <div className="text-white p-4 font-bold text-xl group-hover:bg-purple-600 inline-block">
-            {product.price}
+    <div className="m-5 bg-gray-900 relative">
+      <div className="flex flex-col">
+        <div className="group absolute top-0 left-0 flex flex-col items-start z-10">
+          <div
+            className={`${COLOR_MAP[color]} bg-black font-bold text-3xl text-white p-4 `}
+          >
+            {product.name}
           </div>
-          <div className="w-10/12 mx-auto h-auto hover:w-11/12 cursor-pointer">
-            <Image width={500} height={500} src={product.images[0]} />
+          <div
+            className={`${COLOR_MAP[color]} bg-black font-bold text-xl text-white p-4 `}
+          >
+            ₹{product.price}
           </div>
         </div>
+      </div>
+      <div className="text-center ">
+        <Image width={500} height={500} src={product.images[0]} />
       </div>
     </div>
   )

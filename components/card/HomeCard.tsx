@@ -16,7 +16,7 @@ const HomeCard = ({ product, isHero }: Props) => {
               {product.name}
             </h3>
             <div className="text-white p-4 font-bold text-2xl pb-2 ">
-              {product.price}
+              ₹{product.price}
             </div>
           </div>
         </div>

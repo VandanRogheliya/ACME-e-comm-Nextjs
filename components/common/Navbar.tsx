@@ -97,10 +97,9 @@ const Navbar = () => {
             </button>
           </div>
         )}
-        <Link href="/">
+        <Link href="#">
           <div className={`${active ? 'hidden' : ''} text-white`}>
-            {' '}
-            <ShoppingCartIcon />{' '}
+            <ShoppingCartIcon />
           </div>
         </Link>
       </div>
