@@ -87,7 +87,7 @@ const Navbar = () => {
             </button>
           </div>
         )}
-        {user != null && (
+        {user && (
           <div>
             <button
               onClick={logout}
