@@ -32,7 +32,7 @@ const Footer = () => {
           >
             <div className="flex space-x-6 items-center h-10 text-white">
               <Github />
-            </div>{' '}
+            </div>
           </a>
         </div>
       </div>
