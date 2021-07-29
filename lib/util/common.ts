@@ -2,6 +2,8 @@ import { FIREBASE_COLLECTIONS } from '@lib/constants'
 import firebase, { firebaseAuth, firestore } from '@lib/firebase'
 import {
   CartItemType,
+  CartItemWithProductType,
+  CheckoutItem,
   OrderItemType,
   ProductType,
   UserType,
@@ -103,4 +105,22 @@ export const getProductBySlug = async (slug: string) => {
     console.error(error)
     return null
   }
+}
+
+export const parseCartItemsForCheckoutPage = (
+  cartItems: CartItemWithProductType[]
+) => {
+  const checkoutItems: CheckoutItem[] = []
+  cartItems.forEach(({ product: { name, price, images }, quantity }) =>
+    checkoutItems.push({
+      price_data: {
+        currency: 'inr',
+        product_data: { name, images: [images[0]] },
+        unit_amount: price * 100,
+      },
+      quantity: quantity,
+    })
+  )
+
+  return checkoutItems
 }

@@ -53,3 +53,16 @@ export type CartItemWithProductType = {
   uid: string
   quantity: number
 }
+
+// snack casing is done here to match stripe docs
+export type CheckoutItem = {
+  price_data: {
+    currency: 'inr'
+    product_data: {
+      name: string
+      images: string[]
+    }
+    unit_amount: number
+  }
+  quantity: number
+}

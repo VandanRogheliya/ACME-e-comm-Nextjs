@@ -19,7 +19,6 @@
   "dependencies": {
     "@material-ui/core": "^4.12.1",
     "@material-ui/icons": "^4.11.2",
-    "cors": "^2.8.5",
     "firebase": "^8.7.0",
     "keen-slider": "^5.5.1",
     "next": "11.0.1",

@@ -27,11 +27,16 @@ const CartSidebar = ({ setIsOpen }: Props) => {
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
-        mode: 'no-cors',
+        body: JSON.stringify({ cartItems }),
+        headers: {
+          'content-type': 'application/json',
+        },
       })
-      console.log(response)
-      
-      if (response.status !== 303) throw new Error('Something went wrong')
+      if (!response.ok) throw new Error('Something went wrong')
+
+      const data = await response.json()
+      if (response.ok) window.open(data.url, '_self')
+      else throw Error(response.statusText)
     } catch (error) {
       console.error(error)
     }
