@@ -7,6 +7,7 @@ import { ArrowBack, ArrowForward } from '@material-ui/icons'
 import { useAuth } from 'contexts/auth'
 import useCart from 'hooks/useCart'
 import { useCartSidebar } from 'contexts/cartSidebar'
+import { handleLogin } from '@lib/util/common'
 
 const DEFAULT_ADD_TO_CART_PRODUCT_QUANTITY = 1
 
@@ -61,6 +62,10 @@ const ProductPage = ({ product }: Props) => {
   const [sliderRef, slider] = useKeenSlider<HTMLDivElement>({ loop: true })
 
   const handleAddToCart = async () => {
+    if (!user) {
+      await handleLogin()
+      return
+    }
     await addProduct(
       product.pid,
       DEFAULT_ADD_TO_CART_PRODUCT_QUANTITY,
