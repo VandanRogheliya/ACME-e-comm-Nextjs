@@ -4,6 +4,8 @@ import useCart from 'hooks/useCart'
 import Loader from 'react-loader-spinner'
 import CartItemCard from '@components/cart/CartItemCard'
 import TotalSection from '@components/cart/TotalSection'
+import { useState } from 'react'
+import AddressForm from '@components/cart/AddressForm'
 
 const EmptyCart = () => (
   <div className="flex flex-col space-y-5 items-center justify-center h-full px-5">
@@ -18,12 +20,26 @@ type Props = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+/*
+
+Three cases here:
+  1. Cart is empty -> empty cart state
+  2. Address is missing in the user object -> ask for address -> redirect to checkout page
+  3. Cart is non-empty and address is present in the user object -> redirect to checkout page
+
+*/
+
 const CartSidebar = ({ setIsOpen }: Props) => {
   const { user } = useAuth()
+  const [showAddressForm, setShowAddressForm] = useState(false)
   const { cartItems, total, removeProduct, updateQuantityTo, isLoading } =
     useCart(user?.uid)
 
   const handleCheckout = async () => {
+    if (!user.address) {
+      setShowAddressForm(true)
+      return
+    }
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
@@ -58,6 +74,8 @@ const CartSidebar = ({ setIsOpen }: Props) => {
           </div>
         ) : !cartItems.length ? (
           <EmptyCart />
+        ) : showAddressForm ? (
+          <AddressForm handleCheckout={handleCheckout} />
         ) : (
           <div className="flex flex-col justify-between">
             <div className="flex flex-col px-5 pt-5">

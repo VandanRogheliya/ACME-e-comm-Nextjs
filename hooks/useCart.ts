@@ -170,7 +170,7 @@ const useCart = (uid: string) => {
       if (!(await userRef.get()).exists) throw new Error('User not found')
 
       await userRef.update({
-        orders: firebase.firestore.FieldValue.arrayRemove(cid),
+        cartItems: firebase.firestore.FieldValue.arrayRemove(cid),
       })
     } catch (error) {
       console.error(error)

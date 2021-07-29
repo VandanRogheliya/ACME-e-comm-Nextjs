@@ -1,6 +1,7 @@
 import { FIREBASE_COLLECTIONS } from '@lib/constants'
 import firebase, { firebaseAuth, firestore } from '@lib/firebase'
 import {
+  AddressType,
   CartItemType,
   CartItemWithProductType,
   CheckoutItem,
@@ -123,4 +124,14 @@ export const parseCartItemsForCheckoutPage = (
   )
 
   return checkoutItems
+}
+
+export const updateUserAddress = async (uid: string, address: AddressType) => {
+  try {
+    const userRef = firestore.collection(FIREBASE_COLLECTIONS.USERS).doc(uid)
+    if (!(await userRef.get()).exists) throw new Error('User not found')
+    await userRef.update({ address })
+  } catch (error) {
+    console.error(error)
+  }
 }
