@@ -28,7 +28,6 @@
     "stripe": "^8.161.0"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.12",
     "@types/react": "17.0.13",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
