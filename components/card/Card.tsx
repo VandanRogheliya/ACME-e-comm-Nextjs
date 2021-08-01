@@ -1,9 +1,12 @@
+
 import { COLOR_MAP } from '@lib/constants'
+
 import { ProductType } from '@lib/types/common'
 import Image from 'next/image'
 
 type Props = {
   product: ProductType
+
   color: number
 }
 
@@ -27,6 +30,8 @@ const Card = ({ product, color }: Props) => {
       <div className="text-center ">
         <Image width={500} height={500} src={product.images[0]} />
       </div>
+
+
     </div>
   )
 }

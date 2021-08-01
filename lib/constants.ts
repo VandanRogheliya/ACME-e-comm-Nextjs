@@ -18,6 +18,7 @@ export const PID_ARRAY = [
   '126',
   '127',
 ]
+
 export const COLOR_MAP = {
   0: 'group-hover:bg-purple-600',
   1: 'group-hover:bg-white group-hover:text-black',

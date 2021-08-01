@@ -8,9 +8,9 @@ import firebase from '@lib/firebase'
 import MenuIcon from '@material-ui/icons/Menu'
 
 const Navbar = () => {
-  const [active, setActive] = useState(false)
+  const [isHamburgerActive, setActive] = useState(false)
 
-  const toggleHamburgerMenu = () => setActive(!active)
+  const toggleHamburgerMenu = () => setActive(!isHamburgerActive)
 
   const { user, isLoading } = useAuth()
   const logout = () => firebase.auth().signOut()
@@ -40,10 +40,9 @@ const Navbar = () => {
           </button>
         </div>
       </div>
-
       <div
         className={`${
-          active ? '' : 'hidden'
+          isHamburgerActive ? '' : 'hidden'
         } menu w-full flex-grow lg:flex lg:items-center lg:w-auto lg:px-3 px-8`}
       >
         <div className="text-md font-bold text-white lg:flex-grow">
@@ -53,6 +52,7 @@ const Navbar = () => {
             </a>
           </Link>
         </div>
+
 
         {/* <div className="relative mx-auto text-gray-600 lg:block hidden">
           <input
@@ -77,7 +77,9 @@ const Navbar = () => {
             </svg>
           </button>
         </div> */}
+
         {!isLoading && user == null && (
+
           <div>
             <button
               onClick={handleLogin}
@@ -87,7 +89,9 @@ const Navbar = () => {
             </button>
           </div>
         )}
+
         {user != null && (
+
           <div>
             <button
               onClick={logout}
@@ -97,8 +101,10 @@ const Navbar = () => {
             </button>
           </div>
         )}
-        <Link href="#">
-          <div className={`${active ? 'hidden' : ''} text-white`}>
+
+        <Link href="/">
+          <div className={`${isHamburgerActive ? 'hidden' : ''} text-white`}>
+
             <ShoppingCartIcon />
           </div>
         </Link>
