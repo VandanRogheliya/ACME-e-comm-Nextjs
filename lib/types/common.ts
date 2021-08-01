@@ -38,6 +38,15 @@ export type OrderItemType = {
   timestamp: firebase.firestore.FieldValue
 }
 
+export type OrderItemWithProductType = {
+  oid?: string
+  product: ProductType
+  size: string
+  uid: string
+  quantity: number
+  timestamp: firebase.firestore.FieldValue
+}
+
 export type CartItemType = {
   cid?: string
   pid: string
@@ -51,5 +60,18 @@ export type CartItemWithProductType = {
   product: ProductType
   size: string
   uid: string
+  quantity: number
+}
+
+// snack casing is done here to match stripe docs
+export type CheckoutItem = {
+  price_data: {
+    currency: 'inr'
+    product_data: {
+      name: string
+      images: string[]
+    }
+    unit_amount: number
+  }
   quantity: number
 }

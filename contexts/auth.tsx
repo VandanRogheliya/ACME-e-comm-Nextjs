@@ -36,12 +36,21 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged(() =>
-      handleCurrentUser()
+    const unsubscribeListenerOnAuthChange = firebaseAuth.onAuthStateChanged(
+      () => handleCurrentUser()
     )
     // Stop listening to auth state change on unmount
-    return () => unsubscribe()
+    return () => unsubscribeListenerOnAuthChange()
   }, [])
+
+  useEffect(() => {
+    if (!user) return
+    const unsubscribeListnerOnCurrentUserDocumentChange = firestore
+      .collection(FIREBASE_COLLECTIONS.USERS)
+      .doc(user.uid)
+      .onSnapshot(() => handleCurrentUser())
+    return unsubscribeListnerOnCurrentUserDocumentChange
+  }, [!!user])
 
   return (
     <AuthContext.Provider value={{ user, isLoading: isLoading }}>

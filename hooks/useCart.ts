@@ -170,20 +170,8 @@ const useCart = (uid: string) => {
       if (!(await userRef.get()).exists) throw new Error('User not found')
 
       await userRef.update({
-        orders: firebase.firestore.FieldValue.arrayRemove(cid),
+        cartItems: firebase.firestore.FieldValue.arrayRemove(cid),
       })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const makeEmpty = async () => {
-    try {
-      const cartItemsSnapshot = await firestore
-        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
-        .where('uid', '==', uid)
-        .get()
-      cartItemsSnapshot.forEach((cartItem) => cartItem.ref.delete())
     } catch (error) {
       console.error(error)
     }
@@ -196,7 +184,6 @@ const useCart = (uid: string) => {
     addProduct,
     updateQuantityTo,
     removeProduct,
-    makeEmpty,
   }
 }
 
