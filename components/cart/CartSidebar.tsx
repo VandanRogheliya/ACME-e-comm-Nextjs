@@ -43,7 +43,7 @@ const CartSidebar = ({ setIsOpen }: Props) => {
     try {
       const response = await fetch('/api/checkout', {
         method: 'POST',
-        body: JSON.stringify({ cartItems }),
+        body: JSON.stringify({ cartItems, uid: user.uid }),
         headers: {
           'content-type': 'application/json',
         },

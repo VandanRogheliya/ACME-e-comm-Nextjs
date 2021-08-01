@@ -177,18 +177,6 @@ const useCart = (uid: string) => {
     }
   }
 
-  const makeEmpty = async () => {
-    try {
-      const cartItemsSnapshot = await firestore
-        .collection(FIREBASE_COLLECTIONS.CART_ITEM)
-        .where('uid', '==', uid)
-        .get()
-      cartItemsSnapshot.forEach((cartItem) => cartItem.ref.delete())
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   return {
     cartItems,
     total,
@@ -196,7 +184,6 @@ const useCart = (uid: string) => {
     addProduct,
     updateQuantityTo,
     removeProduct,
-    makeEmpty,
   }
 }
 

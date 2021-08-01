@@ -39,19 +39,32 @@ export const handleLogin = async () => {
 
 export const handlePlaceOrder = async (cartItems: CartItemType[]) => {
   try {
-    cartItems.forEach(async (cartItem) => {
+    if (!cartItems.length) throw Error('Cart is empty')
+
+    const newOrderItemsIds: string[] = []
+    const uid = cartItems[0].uid
+
+    for (const cartItem of cartItems) {
       const orderItem: OrderItemType = {
         pid: cartItem.pid,
-        uid: cartItem.uid,
+        uid: uid,
         quantity: cartItem.quantity,
         size: cartItem.size,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       }
-      await firestore
+      const newOrderItemRef = await firestore
         .collection(FIREBASE_COLLECTIONS.ORDER_ITEM)
-        .doc()
-        .set(orderItem)
-    })
+        .add(orderItem)
+
+      newOrderItemsIds.push(newOrderItemRef.id)
+    }
+
+    await firestore
+      .collection(FIREBASE_COLLECTIONS.USERS)
+      .doc(uid)
+      .update({
+        orders: firebase.firestore.FieldValue.arrayUnion(...newOrderItemsIds),
+      })
   } catch (error) {
     console.error(error)
   }
@@ -133,5 +146,59 @@ export const updateUserAddress = async (uid: string, address: AddressType) => {
     await userRef.update({ address })
   } catch (error) {
     console.error(error)
+  }
+}
+
+export const getProductByIds = async (pids: string[]) => {
+  try {
+    const productsRef = await firestore
+      .collection(FIREBASE_COLLECTIONS.PRODUCTS)
+      .where('pid', 'in', pids)
+      .get()
+    const products: ProductType[] = []
+    productsRef.forEach((productRef) =>
+      products.push(productRef.data() as ProductType)
+    )
+    return products
+  } catch (error) {
+    console.error(error)
+    return []
+  }
+}
+
+export const emptyCart = async (uid: string) => {
+  try {
+    const cartItemsSnapshot = await firestore
+      .collection(FIREBASE_COLLECTIONS.CART_ITEM)
+      .where('uid', '==', uid)
+      .get()
+    cartItemsSnapshot.forEach((cartItem) => cartItem.ref.delete())
+    const userRef = firestore.collection(FIREBASE_COLLECTIONS.USERS).doc(uid)
+
+    if (!(await userRef.get()).exists) throw new Error('User not found')
+
+    await userRef.update({
+      cartItems: [],
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const getAllCartItems = async (uid: string) => {
+  try {
+    const cartItemsSnapshot = await firestore
+      .collection(FIREBASE_COLLECTIONS.CART_ITEM)
+      .where('uid', '==', uid)
+      .get()
+
+    const cartItems: CartItemType[] = []
+    cartItemsSnapshot.forEach((cartItem) =>
+      cartItems.push(cartItem.data() as CartItemType)
+    )
+    return cartItems
+  } catch (error) {
+    console.error(error)
+    return []
   }
 }

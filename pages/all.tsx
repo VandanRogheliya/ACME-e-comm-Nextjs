@@ -7,7 +7,11 @@ import { getProductById } from '@lib/util/common'
 import { GetStaticProps } from 'next'
 import React from 'react'
 
-const AllProducts = ({ products }) => {
+type Props = {
+  products: ProductType[]
+}
+
+const AllProducts = ({ products }: Props) => {
   return (
     <div>
       <Navbar />
@@ -15,7 +19,7 @@ const AllProducts = ({ products }) => {
         <div className="max-w-6xl mx-auto">
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {products.map((product, index) => (
-              <Card product={product} key={products.pid} color={index % 4} />
+              <Card product={product} key={product.pid} color={index % 4} />
             ))}
           </div>
         </div>

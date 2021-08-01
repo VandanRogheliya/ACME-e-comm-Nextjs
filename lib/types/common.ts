@@ -38,6 +38,15 @@ export type OrderItemType = {
   timestamp: firebase.firestore.FieldValue
 }
 
+export type OrderItemWithProductType = {
+  oid?: string
+  product: ProductType
+  size: string
+  uid: string
+  quantity: number
+  timestamp: firebase.firestore.FieldValue
+}
+
 export type CartItemType = {
   cid?: string
   pid: string
