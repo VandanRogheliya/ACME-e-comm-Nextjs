@@ -1,4 +1,5 @@
 import Card from '@components/card/Card'
+import Footer from '@components/common/Footer'
 import Navbar from '@components/common/Navbar'
 import { PID_ARRAY } from '@lib/constants'
 import { ProductType } from '@lib/types/common'
@@ -19,6 +20,7 @@ const AllProducts = ({ products }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

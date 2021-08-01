@@ -1,8 +1,8 @@
-
 import { COLOR_MAP } from '@lib/constants'
 
 import { ProductType } from '@lib/types/common'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type Props = {
   product: ProductType
@@ -12,27 +12,25 @@ type Props = {
 
 const Card = ({ product, color }: Props) => {
   return (
-    <div className="m-5 bg-gray-900 relative">
-      <div className="flex flex-col">
-        <div className="group absolute top-0 left-0 flex flex-col items-start z-10">
-          <div
-            className={`${COLOR_MAP[color]} bg-black font-bold text-3xl text-white p-4 `}
+    <Link href={`/products/${product.slug}`}>
+      <a className="group m-5 bg-gray-900 relative overflow-hidden">
+        <div className="text-center transform group-hover:scale-110 duration-500">
+          <Image width={500} height={500} src={product.images[0]} />
+        </div>
+        <div className="absolute top-0 left-0 flex flex-col items-start text-white">
+          <p
+            className={`${COLOR_MAP[color]} bg-black transition ease-in-out duration-500 font-bold text-xl p-5 whitespace-nowrap`}
           >
             {product.name}
-          </div>
-          <div
-            className={`${COLOR_MAP[color]} bg-black font-bold text-xl text-white p-4 `}
+          </p>
+          <p
+            className={`${COLOR_MAP[color]} bg-black transition ease-in-out duration-500 font-bold text-sm p-5 pt-2`}
           >
-            ₹{product.price}
-          </div>
+            ₹ {product.price.toFixed(2)}
+          </p>
         </div>
-      </div>
-      <div className="text-center ">
-        <Image width={500} height={500} src={product.images[0]} />
-      </div>
-
-
-    </div>
+      </a>
+    </Link>
   )
 }
 export default Card
