@@ -14,25 +14,24 @@ const Home = ({ products }: Props) => {
   return (
     <div>
       <Navbar />
-      <div className="lg:grid lg:grid-rows-2 lg:grid-flow-col">
-        <div className=" bg-purple-700 lg:row-span-2 lg:col-span-2">
+      <div className="lg:grid lg:grid-rows-2 lg:grid-flow-col overflow-hidden">
+        <div className="bg-purple-700  lg:row-span-2 lg:col-span-2">
           <HomeCard
             product={products.filter((products) => products.pid == '115')[0]}
             isHero
           />
         </div>
-        <div className="bg-red-400 lg:row-span-1">
+        <div className="bg-white lg:row-span-1">
           <HomeCard
             product={products.filter((products) => products.pid == '116')[0]}
           />
         </div>
-        <div className="bg-yellow-300 lg:row-span-1">
+        <div className="bg-pink-600 lg:row-span-1">
           <HomeCard
             product={products.filter((products) => products.pid == '117')[0]}
           />
         </div>
       </div>
-
       <Footer />
     </div>
   )
