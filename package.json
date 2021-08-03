@@ -25,7 +25,8 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-loader-spinner": "^4.0.0",
-    "stripe": "^8.161.0"
+    "stripe": "^8.161.0",
+    "timezone": "^1.0.23"
   },
   "devDependencies": {
     "@types/react": "17.0.13",

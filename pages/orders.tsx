@@ -54,7 +54,7 @@ const Orders = () => {
   return (
     <div>
       <Navbar />
-      <div className="bg-black">
+      <div className="bg-black ">
         <div className="max-w-6xl mx-auto">
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
             {test.map((order, index) => (
@@ -70,9 +70,7 @@ const Orders = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-64 static bottom-0">
-        <Footer />
-      </div>
+      <Footer />
     </div>
   )
 }

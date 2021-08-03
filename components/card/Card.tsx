@@ -1,5 +1,5 @@
 import { COLOR_MAP } from '@lib/constants'
-
+import * as tz from 'timezone/loaded'
 import { ProductType } from '@lib/types/common'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -14,16 +14,6 @@ type Props = {
 }
 
 const Card = ({ product, color, isOrderCard, orderDate, quantity }: Props) => {
-  const orderedContent = (
-    <div>
-      <div className="group absolute bottom-0 left-0  bg-black font-bold text-xl text-white p-4">
-        Qty:{quantity}
-      </div>
-      <div className="group absolute bottom-0 right-0  bg-black font-bold text-xl text-white p-4">
-        OrderedOn:{orderDate.toLocaleString('en-US ')}
-      </div>
-    </div>
-  )
   return (
     <Link href={`/products/${product.slug}`}>
       <a className="group m-5 bg-gray-900 relative overflow-hidden">
@@ -42,7 +32,20 @@ const Card = ({ product, color, isOrderCard, orderDate, quantity }: Props) => {
             ₹ {product.price.toFixed(2)}
           </p>
         </div>
-        {isOrderCard && orderedContent}
+        {isOrderCard && (
+          <div className="absolute bottom-0 left-0 flex flex-col items-start text-white">
+            <p
+              className={`${COLOR_MAP[color]} bg-black transition ease-in-out duration-500 font-bold text-xl p-5 whitespace-nowrap`}
+            >
+              Qty: {quantity}
+            </p>
+            <p
+              className={`${COLOR_MAP[color]} bg-black transition ease-in-out duration-500 font-bold text-sm p-5 pt-2`}
+            >
+              {tz(orderDate.toDate(), '%a, %b %-d, %Y')}
+            </p>
+          </div>
+        )}
       </a>
     </Link>
   )
