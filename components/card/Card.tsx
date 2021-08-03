@@ -8,9 +8,22 @@ type Props = {
   product: ProductType
 
   color: number
+  isOrderCard?: boolean
+  orderDate?: any
+  quantity?: number
 }
 
-const Card = ({ product, color }: Props) => {
+const Card = ({ product, color, isOrderCard, orderDate, quantity }: Props) => {
+  const orderedContent = (
+    <div>
+      <div className="group absolute bottom-0 left-0  bg-black font-bold text-xl text-white p-4">
+        Qty:{quantity}
+      </div>
+      <div className="group absolute bottom-0 right-0  bg-black font-bold text-xl text-white p-4">
+        OrderedOn:{orderDate.toLocaleString('en-US ')}
+      </div>
+    </div>
+  )
   return (
     <Link href={`/products/${product.slug}`}>
       <a className="group m-5 bg-gray-900 relative overflow-hidden">
@@ -29,6 +42,7 @@ const Card = ({ product, color }: Props) => {
             ₹ {product.price.toFixed(2)}
           </p>
         </div>
+        {isOrderCard && orderedContent}
       </a>
     </Link>
   )

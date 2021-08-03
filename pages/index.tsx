@@ -11,6 +11,24 @@ type Props = {
 }
 
 const Home = ({ products }: Props) => {
+  // const auth= useAuth()
+  // const { cartItems } = useCart(auth.user?.uid)
+  // Testing purposes
+  // useEffect(() => {
+  //   const cart: CartItemType[] = cartItems.map(
+  //     (cartItem) =>
+  //       ({
+  //         cid: cartItem.cid,
+  //         pid: cartItem.product.pid,
+  //         size: cartItem.size,
+  //         uid: cartItem.uid,
+  //         quantity: cartItem.quantity,
+  //       } as CartItemType)
+  //   )
+  //   handlePlaceOrder(cart)
+
+  // }, [])
+
   return (
     <div>
       <Navbar />

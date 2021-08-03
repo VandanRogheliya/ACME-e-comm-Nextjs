@@ -46,7 +46,6 @@ export type OrderItemWithProductType = {
   quantity: number
   timestamp: firebase.firestore.FieldValue
 }
-
 export type CartItemType = {
   cid?: string
   pid: string

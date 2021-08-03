@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Logo from '@components/common/Logo'
 import Github from '@components/common/Github'
-// can add other details as and when required under the Home . Currently only added the Home which still has to be routed to the actual page
+
 const Footer = () => {
   return (
-    <footer className="bg-black p-3 px-10 lg:px-12">
+    <footer className="bg-black p-3 fixed inset-x-0 bottom-0 ">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-accent-2 py-12 text-primary bg-primary transition-colors duration-150">
         <div className="col-span-1 lg:col-span-3">
           <Link href="/">
