@@ -93,7 +93,7 @@ const ProductPage = ({ product }: Props) => {
         <div className="absolute top-0 left-0 flex flex-col items-start">
           <p className="bg-black font-bold text-3xl p-4">{product.name}</p>
           <p className="bg-black font-bold text-sm p-4 pt-0">
-            $ {product.price.toFixed(2)} USD
+            ₹ {product.price.toFixed(2)}
           </p>
         </div>
         <div className="absolute flex bottom-0 right-0 mb-10 mr-10">

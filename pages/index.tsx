@@ -1,7 +1,7 @@
 import Navbar from '@components/common/Navbar'
 import Footer from '@components/common/Footer'
 import HomeCard from '@components/card/HomeCard'
-import { PID_ARRAY } from '@lib/constants'
+import { HOME_PID_ARRAY } from '@lib/constants'
 import { ProductType } from '@lib/types/common'
 import { getProductById } from '@lib/util/common'
 import { GetStaticProps } from 'next'
@@ -38,7 +38,7 @@ const Home = ({ products }: Props) => {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const pidArray = PID_ARRAY
+  const pidArray = HOME_PID_ARRAY
   const products: ProductType[] = []
 
   for (let i = 0; i < pidArray.length; i++) {

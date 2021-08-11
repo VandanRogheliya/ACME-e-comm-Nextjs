@@ -15,11 +15,10 @@ const AuthContext = createContext<AuthContextValueType>({
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<UserType>(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleCurrentUser = async () => {
     setIsLoading(true)
-
     try {
       const currentUserUID = firebaseAuth.currentUser?.uid
       if (currentUserUID) {

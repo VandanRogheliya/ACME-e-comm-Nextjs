@@ -48,7 +48,7 @@ const Navbar = () => {
       </div>
       <div
         className={`${
-          isHamburgerActive ? 'max-h-32' : 'max-h-0 lg:max-h-32'
+          isHamburgerActive ? 'max-h-44' : 'max-h-0 lg:max-h-32'
         } transition-all overflow-hidden duration-500 menu w-full flex-grow lg:flex lg:items-center lg:w-auto lg:px-3`}
       >
         <div className="text-md font-bold text-white lg:flex-grow lg:flex">
@@ -57,15 +57,15 @@ const Navbar = () => {
               All products
             </a>
           </Link>
-          <div className="lg:flex-initial">
+          {user && (
             <Link href="/orders">
               <a className="block mt-4 lg:inline-block lg:mt-0 hover:text-white px-4 py-2 rounded hover:text-opacity-50 mr-2">
                 Orders
               </a>
             </Link>
-          </div>
+          )}
         </div>
-        {!isLoading && user == null && (
+        {!isLoading && !user && (
           <div>
             <button
               onClick={handleLogin}

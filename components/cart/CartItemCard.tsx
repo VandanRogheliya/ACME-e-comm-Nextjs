@@ -29,7 +29,7 @@ const CartItemCard = ({
           {product.name}
           {size && `, ${size}`}
         </p>
-        <p>$ {(product.price * quantity).toFixed(2)}</p>
+        <p>₹ {(product.price * quantity).toFixed(2)}</p>
       </div>
     </div>
     <div className="flex space-x-3">

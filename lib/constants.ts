@@ -8,7 +8,7 @@ export const PID_ARRAY = [
   '115',
   '116',
   '117',
-  '118',
+  // '118',
   '119',
   '120',
   '121',
@@ -18,6 +18,8 @@ export const PID_ARRAY = [
   '126',
   '127',
 ]
+
+export const HOME_PID_ARRAY = ['115', '116', '117']
 
 export const COLOR_MAP = {
   0: 'group-hover:bg-purple-600',
