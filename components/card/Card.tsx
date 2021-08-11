@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 type Props = {
   product: ProductType
-
   color: number
   isOrderCard?: boolean
   orderDate?: any

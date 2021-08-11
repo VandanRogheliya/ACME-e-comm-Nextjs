@@ -8,6 +8,7 @@ import Loader from 'react-loader-spinner'
 import Footer from '@components/common/Footer'
 import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
+import * as tz from 'timezone/loaded'
 
 const Orders = () => {
   const [isLoading, setisLoading] = useState(true)
@@ -37,6 +38,12 @@ const Orders = () => {
           uid: order.uid,
           oid: order.oid,
         } as OrderItemWithProductType)
+    )
+    ordersWithProducts.sort((orderA, orderB) =>
+      tz((orderA.timestamp as any).toDate()) >
+      tz((orderB.timestamp as any).toDate())
+        ? -1
+        : 0
     )
     setOrders(ordersWithProducts)
   }
