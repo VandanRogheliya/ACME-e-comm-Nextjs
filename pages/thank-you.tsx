@@ -55,7 +55,7 @@ const ThankYou = () => {
   return (
     <div>
       <Navbar />
-      <div className="h-screen flex bg-black text-white">
+      <div className="h-screen flex bg-black text-white text-center">
         <div className="px-5 flex flex-col max-w-6xl mx-auto lg:m-auto lg:items-center">
           <div className="flex items-center justify-center text-6xl lg:text-9xl py-10 lg:pt-0">
             <CheckCircle className="" fontSize="inherit" />
