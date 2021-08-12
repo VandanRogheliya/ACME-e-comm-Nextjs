@@ -1,13 +1,57 @@
 import Footer from '@components/common/Footer'
 import Navbar from '@components/common/Navbar'
 import { emptyCart, getAllCartItems, handlePlaceOrder } from '@lib/util/common'
+import Loader from 'react-loader-spinner'
 import { CheckCircle } from '@material-ui/icons'
 import { useAuth } from 'contexts/auth'
-import { GetServerSideProps } from 'next'
+import { useRouter } from 'next/dist/client/router'
+
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 const ThankYou = () => {
   const { user } = useAuth()
+  const [isLoading, setIsLoading] = useState(true)
+  const router = useRouter()
+
+  const makeOrders = async () => {
+    setIsLoading(true)
+    const queryKey = 'uid'
+    try {
+      const uid =
+        router.query[queryKey] ||
+        router.asPath.match(new RegExp(`[&?]${queryKey}=(.*)(&|$)`))[1]
+
+      if (!uid) {
+        throw new Error('query param uid not found')
+      }
+
+      const cartItems = await getAllCartItems(uid as string)
+      await emptyCart(uid as string)
+      await handlePlaceOrder(cartItems)
+    } catch (error) {
+      console.error(error)
+      router.replace('/error')
+    }
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    makeOrders()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div>
+        <Navbar />
+        <div className="bg-black h-screen flex items-center justify-center ">
+          <Loader type="ThreeDots" color="#FFFFFF" height={100} width={100} />
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
   return (
     <div>
       <Navbar />
@@ -46,19 +90,6 @@ const ThankYou = () => {
       <Footer />
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query, res } = context
-  if (!query.uid) {
-    res.writeHead(302, { location: '/error' })
-    res.end()
-  }
-  const uid = query.uid as string
-  const cartItems = await getAllCartItems(uid)
-  await emptyCart(uid)
-  await handlePlaceOrder(cartItems)
-  return { props: {} }
 }
 
 export default ThankYou

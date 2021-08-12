@@ -19,11 +19,22 @@ const Orders = () => {
   const getOrders = async () => {
     if (!user) return
     setisLoading(true)
-    const orders = await getAllOrders(user?.uid)
+    let orders = await getAllOrders(user?.uid)
     if (!orders.length) {
       setisLoading(false)
       return
     }
+
+    orders.sort((orderA, orderB) =>
+      tz((orderA.timestamp as any).toDate()) >
+      tz((orderB.timestamp as any).toDate())
+        ? -1
+        : 0
+    )
+
+    // Cant have an array more than 10 for `in` query in firebase. Using it to fetch products
+    if (orders.length > 10) orders = orders.slice(0, 10)
+
     const pids: string[] = orders.map((order) => order.pid)
 
     const products = await getProductByIds(pids)
@@ -39,12 +50,7 @@ const Orders = () => {
           oid: order.oid,
         } as OrderItemWithProductType)
     )
-    ordersWithProducts.sort((orderA, orderB) =>
-      tz((orderA.timestamp as any).toDate()) >
-      tz((orderB.timestamp as any).toDate())
-        ? -1
-        : 0
-    )
+
     setOrders(ordersWithProducts)
   }
 
@@ -64,6 +70,7 @@ const Orders = () => {
       </div>
     )
   }
+
   return (
     <div>
       <Navbar />
