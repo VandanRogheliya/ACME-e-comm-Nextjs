@@ -11,6 +11,9 @@
 ### ✨ [Demo](https://acmestore.vercel.app/)
 
 ### :hammer_and_wrench: Tools
+
+> TODO: Add links
+
 - :rocket: NextJS
 - :bank: Stripe
 - :evergreen_tree: TypeScript
@@ -19,32 +22,49 @@
 - :nail_care: Tailwind
 
 ### :gift: Features
-#### :bust_in_silhouette: Google OAuth2
-#### :credit_card: Card checkout
-- Users can purchase items using their card (Currently it is kept in test mode, so no real transactions :see_no_evil:)
-- Test card number: `4242 4242 4242 4242` (Rest all details do not matter)
-#### 🛒 Interact cart
-TODO: Add screenshots
-#### Response
 
+#### :bust_in_silhouette: Google OAuth2
+
+#### :credit_card: Card checkout
+
+- Users can purchase items using their card (Currently it is kept in test mode, so no real transactions :see_no_evil:)
+- Test card number: `4242 4242 4242 4242`
+
+#### 🛒 Interact cart
+
+TODO: Add screenshots
+
+#### :iphone: Responsive
 
 ## Install
+
+1. Install dependancies
 
 ```sh
 yarn
 ```
 
-## Usage
+2. Copy `.env.local` template
+
+```sh
+cp .env.local.example .env.local
+```
+
+3. Add firebase and stripe keys to `.env.local`
+
+## Develop
 
 ```sh
 yarn dev
 ```
 
-## Author
+## Authors
 
-👤 **Vandan and Steve**
+:sunglasses: **Vandan**
 
-* Github: [@VandanRogheliya](https://github.com/VandanRogheliya) and [@stevenovak123](https://github.com/stevenovak123)
+:sunglasses: **Steve**
+
+- Github: [@VandanRogheliya](https://github.com/VandanRogheliya) and [@stevenovak123](https://github.com/stevenovak123)
 
 ## 🤝 Contributing
 
