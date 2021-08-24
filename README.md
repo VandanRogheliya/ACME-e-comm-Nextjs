@@ -25,6 +25,7 @@
 
 #### :credit_card: Card checkout
 <img src="./public/payment-gateway.png" />
+
 - Users can purchase items using their card (Currently it is kept in test mode, so no real transactions :see_no_evil:)
 - Test card number: `4242 4242 4242 4242`
 
