@@ -12,27 +12,24 @@
 
 ### :hammer_and_wrench: Tools
 
-> TODO: Add links
-
-- :rocket: NextJS
-- :bank: Stripe
-- :evergreen_tree: TypeScript
-- :fire: Firestore
-- :beginner: Firebase auth
-- :nail_care: Tailwind
+- :rocket: [NextJS](https://nextjs.org/)
+- :bank: [Stripe](https://stripe.com/)
+- :evergreen_tree: [TypeScript](https://www.typescriptlang.org/)
+- :fire: [Firestore](https://firebase.google.com/docs/firestore)
+- :beginner: [Firebase auth](https://firebase.google.com/docs/auth)
+- :nail_care: [TailwindCSS](https://tailwindcss.com/)
 
 ### :gift: Features
 
 #### :bust_in_silhouette: Google OAuth2
 
 #### :credit_card: Card checkout
-
+<img src="./public/payment-gateway.png" />
 - Users can purchase items using their card (Currently it is kept in test mode, so no real transactions :see_no_evil:)
 - Test card number: `4242 4242 4242 4242`
 
 #### 🛒 Interact cart
-
-TODO: Add screenshots
+<img src="./public/cart-screenshot.png" />
 
 #### :iphone: Responsive
 
