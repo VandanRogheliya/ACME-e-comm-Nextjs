@@ -36,7 +36,7 @@
 
 ## Install
 
-1. Install dependancies
+1. Install dependencies
 
 ```sh
 yarn
